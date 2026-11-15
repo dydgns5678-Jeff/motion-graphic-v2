@@ -1,0 +1,63 @@
+<!--
+  부품: 그림 + 이름 (역할 칸: 자료 + 이름)
+  바꾸는 부분: [data-slot="figure"] 안의 SVG 그림 한 장(직접 그린 도형 · 수직선 · 표), [data-slot="name"] 그림 이름, [data-slot="desc"] 설명 한두 줄, [data-slot="source"] 출처.
+  건드리지 않는 것: 그림 왼쪽 60% · 글 오른쪽 40% 배치, 그림 규칙(면 var(--color-fill), 선 var(--color-ink) var(--stroke-ink), 점 var(--color-point), 짚는 곳 하나만 var(--color-line-accent) — 선에만, 글자에는 쓰지 않음), 그림 안 수 var(--text-figure) · 라벨 var(--text-figure-label) · 굵기 var(--weight-math) · 색 var(--color-ink), 이름 var(--text-title), 설명 var(--text-body), 출처 var(--text-label) · var(--color-ink-soft).
+  따로 움직일 수 있는 조각: [data-piece="axis"] 수직선 몸통, [data-piece="tick"] 눈금 묶음, [data-piece="point-a"] · [data-piece="point-b"] 점, [data-piece="arc-a"] · [data-piece="arc-b"] 거리 곡선(선 긋기 가능), [data-piece="name"], [data-piece="desc"], [data-piece="source"].
+  견본 글 · 그림: 직접 쓰고 그린 것 (교과서 원문 · 교과서 그림 아님).
+  출처: docs/design.md 1장 color-fill · color-line-accent · color-point (B 0:01, 0:05, 0:10), 4장 stroke-ink 7px (B 0:10), 6장 그림 규칙, 4장 구도 가로 변환.
+-->
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="_tokens.css">
+<style>
+  .figure { position: absolute; left: var(--space-margin-x); top: 0; width: 1040px; height: 1080px; display: flex; align-items: center; }
+  .figure svg { width: 1040px; height: 520px; overflow: visible; }
+  .text {
+    position: absolute; left: 1260px; right: var(--space-margin-x); top: 0; bottom: 0;
+    display: flex; flex-direction: column; justify-content: center; gap: var(--space-stack);
+    color: var(--color-ink);
+  }
+  .name { font-family: var(--font-sans); font-weight: 700; font-size: var(--text-title); line-height: 1.2; }
+  .desc { font-family: var(--font-sans); font-weight: 600; font-size: var(--text-body); line-height: 1.45; }
+  .source { font-family: var(--font-sans); font-weight: 600; font-size: var(--text-label); color: var(--color-ink-soft); }
+  .num { font-family: var(--font-serif); font-weight: var(--weight-math); font-size: var(--text-figure); fill: var(--color-ink); }
+  .arc-label { font-family: var(--font-serif); font-weight: var(--weight-math); font-size: var(--text-figure-label); fill: var(--color-ink); }
+</style>
+</head>
+<body class="preview">
+  <div class="figure" data-slot="figure">
+    <svg viewBox="0 0 1040 520" xmlns="http://www.w3.org/2000/svg">
+      <g data-piece="axis" stroke="var(--color-ink)" style="stroke-width: var(--stroke-ink)" stroke-linecap="round" fill="none">
+        <line x1="20" y1="300" x2="1010" y2="300"/>
+        <path d="M 990 284 L 1016 300 L 990 316" stroke-linejoin="round"/>
+      </g>
+      <g data-piece="tick" stroke="var(--color-ink)" style="stroke-width: var(--stroke-ink)" stroke-linecap="round">
+        <line x1="120" y1="282" x2="120" y2="318"/>
+        <line x1="240" y1="282" x2="240" y2="318"/>
+        <line x1="360" y1="282" x2="360" y2="318"/>
+        <line x1="480" y1="282" x2="480" y2="318"/>
+        <line x1="600" y1="282" x2="600" y2="318"/>
+        <line x1="720" y1="282" x2="720" y2="318"/>
+        <line x1="840" y1="282" x2="840" y2="318"/>
+      </g>
+      <g class="num" text-anchor="middle">
+        <text x="120" y="390">−4</text><text x="240" y="390">−3</text><text x="360" y="390">−2</text><text x="480" y="390">−1</text>
+        <text x="600" y="390">0</text><text x="720" y="390">+1</text><text x="840" y="390">+2</text>
+      </g>
+      <path data-piece="arc-a" d="M 240 270 Q 420 110 600 270" fill="none" stroke="var(--color-ink)" style="stroke-width: var(--stroke-ink)" stroke-linecap="round" stroke-dasharray="2 18"/>
+      <text class="arc-label" x="420" y="168" text-anchor="middle">3</text>
+      <path data-piece="arc-b" d="M 600 270 Q 720 160 840 270" fill="none" stroke="var(--color-line-accent)" style="stroke-width: var(--stroke-ink)" stroke-linecap="round"/>
+      <text class="arc-label" x="720" y="196" text-anchor="middle">2</text>
+      <circle data-piece="point-a" cx="240" cy="300" r="13" fill="var(--color-point)"/>
+      <circle data-piece="point-b" cx="840" cy="300" r="13" fill="var(--color-point)"/>
+    </svg>
+  </div>
+  <div class="text">
+    <p class="name" data-slot="name" data-piece="name">수직선 위의 거리</p>
+    <p class="desc" data-slot="desc" data-piece="desc">원점에서 점까지 떨어진 거리를 재면 그 수의 절댓값이 된다.</p>
+    <p class="source" data-slot="source" data-piece="source">교과서 p.42</p>
+  </div>
+</body>
+</html>

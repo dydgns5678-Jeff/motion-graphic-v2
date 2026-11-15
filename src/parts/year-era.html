@@ -1,0 +1,48 @@
+<!--
+  부품: 큰 수 + 부제 (역할 칸: 연도 · 시대)
+  바꾸는 부분: [data-slot="number"] 안의 숫자 칸(한 자리에 span 하나), [data-slot="prefix"] 앞말(없으면 비운다), [data-slot="subtitle"] 부제 한 줄.
+  건드리지 않는 것: 큰 수 글꼴 var(--font-serif) · var(--text-display) · var(--color-ink), 부제 var(--text-body) · var(--color-ink), 가운데 정렬, 수와 부제 사이 var(--space-stack).
+  따로 움직일 수 있는 조각: [data-piece="digit"] 숫자 한 자리씩, [data-piece="prefix"], [data-piece="subtitle"].
+  견본 글: 직접 쓴 것 (교과서 원문 아님).
+  출처: docs/design.md 2장 text-display, 4장 구도(가운데 정렬, A 0:02).
+-->
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="_tokens.css">
+<style>
+  .stack {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: var(--space-stack);
+    color: var(--color-ink);
+  }
+  .number {
+    display: flex; align-items: baseline; gap: 0.06em;
+    font-family: var(--font-serif); font-weight: 600;
+    font-size: var(--text-display); line-height: 1;
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+  .prefix {
+    font-family: var(--font-sans); font-weight: 700;
+    font-size: var(--text-title); margin-right: 0.35em;
+    align-self: center;
+  }
+  .digit { display: inline-block; }
+  .subtitle {
+    font-family: var(--font-sans); font-weight: 600;
+    font-size: var(--text-body); line-height: 1.45;
+  }
+</style>
+</head>
+<body class="preview">
+  <div class="stack">
+    <div class="number" data-slot="number">
+      <span class="prefix" data-slot="prefix" data-piece="prefix">기원전</span>
+      <span class="digit" data-piece="digit">2</span><span class="digit" data-piece="digit">7</span><span class="digit" data-piece="digit">6</span>
+    </div>
+    <p class="subtitle" data-slot="subtitle" data-piece="subtitle">에라토스테네스가 태어났다고 알려진 해</p>
+  </div>
+</body>
+</html>

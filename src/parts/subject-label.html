@@ -1,0 +1,29 @@
+<!--
+  부품: 과목 · 단원 라벨 (역할 칸: 과목 · 단원)
+  바꾸는 부분: [data-slot="subject"] 과목, [data-slot="unit"] 단원.
+  건드리지 않는 것: 자리(왼쪽 위, 화면 여백 안쪽 끝: 왼쪽 var(--space-margin-x) · 위 var(--space-margin-y), video.md 4장), 글자 var(--text-label) · var(--color-ink-soft), 과목과 단원 사이 세로 막대 var(--label-bar-w) × var(--label-bar-h) · 간격 var(--label-gap). 영상 내내 같은 자리.
+  따로 움직일 수 있는 조각: [data-piece="label"] 라벨 통째 (나타나기 · 사라지기만).
+  견본 글: 직접 쓴 것.
+  출처: **레퍼런스에 없음.** A · B 모두 영상 내내 남는 라벨이 없다. roles.md 칸을 채우려고 design.md 색 · 글자 토큰만으로 만들었다. 선생님 확정 2026-11-15 (영상 내내 왼쪽 위).
+-->
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="_tokens.css">
+<style>
+  .label {
+    position: absolute; left: var(--space-margin-x); top: var(--space-margin-y);
+    display: flex; align-items: center; gap: var(--label-gap);
+    font-family: var(--font-sans); font-weight: 600; font-size: var(--text-label); line-height: 1;
+    color: var(--color-ink-soft);
+  }
+  .bar { width: var(--label-bar-w); height: var(--label-bar-h); background: var(--color-ink-soft); }
+</style>
+</head>
+<body class="preview">
+  <div class="label" data-piece="label">
+    <span data-slot="subject">수학 1</span><span class="bar"></span><span data-slot="unit">1. 소인수분해</span>
+  </div>
+</body>
+</html>

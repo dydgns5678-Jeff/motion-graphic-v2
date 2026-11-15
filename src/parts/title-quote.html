@@ -1,0 +1,42 @@
+<!--
+  부품: 제목 + 강조 문장 (역할 칸: 제목 + 강조 문장)
+  바꾸는 부분: [data-slot="title"] 장면 제목, [data-slot="sentence"] 교과서 한 문장, 그 안의 <mark data-slot="mark"> 강조 한 군데, [data-slot="page"] 쪽수.
+  건드리지 않는 것: 제목 var(--text-title) · 굵기 700, 문장 var(--text-body), 글자색 var(--color-ink), 강조는 노랑 형광 밑줄(var(--color-highlight)) 한 군데만, 가운데 정렬, 문장 최대 폭 1400px.
+  따로 움직일 수 있는 조각: [data-piece="title"], [data-piece="sentence"], [data-piece="mark-bar"] 형광 밑줄 막대(왼쪽에서 오른쪽으로 그을 수 있게 따로 둔다), [data-piece="page"].
+  견본 글: 직접 쓴 것 (교과서 원문 아님).
+  출처: docs/design.md 1장 color-highlight (B 0:18.5), 2장 text-title · text-body (A 0:02, B 0:34), 4장 구도.
+-->
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="_tokens.css">
+<style>
+  .stack {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: var(--space-section);
+    color: var(--color-ink); text-align: center;
+  }
+  .title { font-family: var(--font-sans); font-weight: 700; font-size: var(--text-title); line-height: 1.2; }
+  .sentence {
+    max-width: 1400px;
+    font-family: var(--font-sans); font-weight: 600; font-size: var(--text-body); line-height: 1.45;
+  }
+  mark { position: relative; background: none; color: inherit; white-space: nowrap; }
+  .mark-bar {
+    position: absolute; left: -0.12em; right: -0.12em; bottom: 0.02em; height: 0.42em;
+    background: var(--color-highlight); z-index: -1; border-radius: 0.08em;
+    transform-origin: left center;
+  }
+  .page { font-family: var(--font-sans); font-weight: 600; font-size: var(--text-label); color: var(--color-ink-soft); }
+</style>
+</head>
+<body class="preview">
+  <div class="stack">
+    <h1 class="title" data-slot="title" data-piece="title">소수와 합성수</h1>
+    <p class="sentence" data-slot="sentence" data-piece="sentence">약수가 딱 두 개뿐인 자연수를 <mark data-slot="mark"><span class="mark-bar" data-piece="mark-bar"></span>소수</mark>라고 부른다.</p>
+    <p class="page" data-slot="page" data-piece="page">교과서 p.12</p>
+  </div>
+</body>
+</html>

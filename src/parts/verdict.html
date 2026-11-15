@@ -1,0 +1,38 @@
+<!--
+  부품: 짧은 말 + 손글씨 화살표 (역할 칸: 판정 · 강조)
+  바꾸는 부분: [data-slot="word"] 짧은 말 한 개 (2~6글자), 화살표 끝 위치는 [data-slot="target"] 좌표(left · top)로 옮긴다.
+  건드리지 않는 것: 글자색 · 화살표색 var(--color-accent), 글자 크기 var(--text-verdict) 112px · 굵기 700 (주황은 대비가 낮아 크게만 쓴다, design.md 1장), 화살표 굵기 var(--stroke-accent) 12px · 끝 둥글게, 말이 화살표 꼬리 아래.
+  따로 움직일 수 있는 조각: [data-piece="word"], [data-piece="arrow-shaft"] 화살표 몸통(선 긋기 가능), [data-piece="arrow-head"] 화살촉.
+  견본 글: 직접 쓴 것.
+  출처: docs/design.md 1장 color-accent, B 0:08~0:11 주황 손글씨 라벨 + 휘어진 화살표 (모양만 다시 그림, 원본 글자 · 획 아님).
+-->
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="_tokens.css">
+<style>
+  .target { position: absolute; left: 1080px; top: 330px; width: 0; height: 0; }
+  .target-hint {
+    position: absolute; left: 1080px; top: 330px; transform: translate(-50%, -50%);
+    width: 260px; height: 180px; border-radius: 14px; background: var(--color-fill);
+  }
+  .arrow { position: absolute; left: 760px; top: 300px; width: 360px; height: 360px; overflow: visible; }
+  .word {
+    position: absolute; left: 560px; top: 680px;
+    font-family: var(--font-sans); font-weight: 700; font-size: var(--text-verdict); line-height: 1;
+    color: var(--color-accent); letter-spacing: 0.02em;
+  }
+</style>
+</head>
+<body class="preview">
+  <!-- 미리보기용 짚을 대상 (실제 장면에서는 다른 부품이 이 자리에 온다) -->
+  <div class="target-hint" aria-hidden="true"></div>
+  <div class="target" data-slot="target"></div>
+  <svg class="arrow" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+    <path data-piece="arrow-shaft" d="M 60 360 C 40 230 120 120 282 92" fill="none" stroke="var(--color-accent)" style="stroke-width: var(--stroke-accent)" stroke-linecap="round"/>
+    <path data-piece="arrow-head" d="M 236 56 L 284 92 L 232 124" fill="none" stroke="var(--color-accent)" style="stroke-width: var(--stroke-accent)" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <p class="word" data-slot="word" data-piece="word">서로소!</p>
+</body>
+</html>

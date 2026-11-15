@@ -1,0 +1,27 @@
+<!--
+  부품: 바탕 (역할 칸: 바탕)
+  바꾸는 부분: 없음. 장면마다 같은 바탕을 쓴다.
+  건드리지 않는 것: 색 var(--color-bg), 종이 결 src/assets/textures/paper.svg, 크기 2112×1188 (화면보다 10% 큼, 카메라가 움직여도 가장자리 안 보임), 가운데 맞춤 위치.
+  따로 움직일 수 있는 조각: [data-piece="paper"] 바탕 한 장 (카메라 이동 · 확대는 이 조각에 준다).
+  출처: docs/design.md 1장 color-bg (A 0:02, B 0:01), 5장 질감.
+-->
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="_tokens.css">
+<style>
+  body { background: transparent; }
+  .paper {
+    position: absolute;
+    left: -96px; top: -54px;
+    width: 2112px; height: 1188px;
+    background-color: var(--color-bg);
+    background-image: url("../assets/textures/paper.svg");
+  }
+</style>
+</head>
+<body>
+  <div class="paper" data-piece="paper"></div>
+</body>
+</html>

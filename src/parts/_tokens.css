@@ -1,0 +1,79 @@
+/* docs/design.md 값을 그대로 옮긴 공통 토큰. 값을 바꿀 때는 design.md를 먼저 고친다. */
+@font-face { font-family: "Pretendard"; font-weight: 400; src: url("../assets/fonts/Pretendard-Regular.woff2") format("woff2"); }
+@font-face { font-family: "Pretendard"; font-weight: 600; src: url("../assets/fonts/Pretendard-SemiBold.woff2") format("woff2"); }
+@font-face { font-family: "Pretendard"; font-weight: 700; src: url("../assets/fonts/Pretendard-Bold.woff2") format("woff2"); }
+@font-face { font-family: "Noto Serif KR"; font-weight: 200 900; src: url("../assets/fonts/NotoSerifKR-VF.woff2") format("woff2"); }
+
+:root {
+  /* 1. 색 */
+  --color-bg: #F2F2F2;
+  --color-ink: #084A84;
+  --color-ink-soft: #4A6F94;
+  --color-accent: #FF8705;
+  --color-highlight: #F4E464;
+  --color-fill: #98B4C4;
+  --color-line-accent: #FC5C04;
+  --color-fill-accent: #B48868;
+  --color-flash: #038DFF;
+  --color-point: #3B3B41;
+
+  /* 2. 글자 */
+  --font-sans: "Pretendard", sans-serif;
+  --font-serif: "Noto Serif KR", serif;
+  --text-display: 200px;
+  --text-title: 72px;
+  --text-body: 52px;
+  --text-label: 36px;
+  --text-math: 80px;
+  --text-figure: 56px;
+  --text-figure-label: 52px;
+  --text-verdict: 112px;
+  --weight-math: 600;
+
+  /* 4. 크기 · 간격 */
+  --space-margin-x: 160px;
+  --space-margin-y: 96px;
+  --space-stack: 40px;
+  --space-tight: 12px;
+  --stroke-ink: 7px;
+  --stroke-highlight: 22px;
+  --point-size: 18px;
+  --space-section: 60px;
+  --stroke-accent: 12px;
+  --frac-size: var(--text-figure);
+  --frac-bar: 4px;
+  --frac-gap: 8px;
+  --frac-overhang: 6px;
+  --label-gap: 18px;
+  --label-bar-w: 3px;
+  --label-bar-h: 30px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { width: 1920px; height: 1080px; overflow: hidden; }
+
+/* 한글 낱말 중간에서 줄을 바꾸지 않는다 */
+body { word-break: keep-all; overflow-wrap: break-word; }
+
+/* 부품은 투명한 층이다. 미리보기(견본 찍기) 때만 바탕을 깐다. 합성할 때는 background.html이 바탕을 맡는다. */
+body.preview { position: relative; }
+body.preview::before {
+  content: ""; position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; z-index: -2;
+  background-color: var(--color-bg);
+  background-image: url("../assets/textures/paper.svg");
+}
+
+.frame { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+
+/* 세로 분수: <span class="frac"><span class="num">5</span><span class="den">4</span></span>, 음수는 앞에 −를 따로 쓴다 */
+.frac {
+  display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle;
+  font-family: var(--font-serif); font-weight: var(--weight-math); font-size: var(--frac-size); line-height: 1;
+  margin: 0 0.1em;
+}
+.frac .num { padding: 0 var(--frac-overhang) var(--frac-gap); border-bottom: var(--frac-bar) solid currentColor; }
+.frac .den { padding: var(--frac-gap) var(--frac-overhang) 0; }
+
+.sans { font-family: var(--font-sans); }
+.serif { font-family: var(--font-serif); }
