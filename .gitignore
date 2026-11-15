@@ -21,3 +21,6 @@ references/**/*.jpeg
 references/**/*.png
 references/**/*.gif
 references/**/*.webp
+
+# Claude 플러그인(OMC) 세션 기록은 로컬 전용
+.omc/
